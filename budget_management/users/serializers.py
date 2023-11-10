@@ -44,13 +44,9 @@ class UserLoginSerializer(serializers.Serializer):
     def validate(self, data):
         user = authenticate(username=data["username"], password=data["password"])
 
-        if user is None:
+        if user is None or not user.is_active:
             raise serializers.ValidationError("Username or Password is Incorrect")
-        return data
 
-    def create(self, validated_data):
-        user = authenticate(username=validated_data["username"], password=validated_data["password"])
-        if user is not None:
-            user.is_active = True
-            user.save()
-        return user
+        data["token"] = self.get_token(user)
+
+        return data
