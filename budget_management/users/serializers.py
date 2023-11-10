@@ -6,7 +6,7 @@ from budget_management.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        field = ("username", "created_at", "updated_at")
+        fields = ("username", "created_at", "updated_at")
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
