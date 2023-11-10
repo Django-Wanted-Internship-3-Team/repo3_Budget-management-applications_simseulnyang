@@ -12,7 +12,7 @@ class RegistrationTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser1", password="testpassword")
 
-    def test_post_signup_success(self):
+    def test_create_user_success(self):
         response = self.client.post(
             path=reverse("signup"),
             data=json.dumps({"username": "testuser2", "password": "testpassword"}),
@@ -22,7 +22,7 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response_data["username"], "testuser2")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_post_signup_fail_invalid_password(self):
+    def test_create_user_fail_invalid_password(self):
         response = self.client.post(
             path=reverse("signup"),
             data={"username": "testuser3", "password": "1010"},
@@ -30,7 +30,7 @@ class RegistrationTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_password_similarity_validator(self):
+    def test_create_user_fail_password_similarity_validator(self):
         response = self.client.post(
             path=reverse("signup"),
             data={"username": "testuser3", "password": "testuser312"},
