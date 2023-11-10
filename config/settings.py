@@ -23,7 +23,9 @@ THIRD_PARTY_APPS = [
     "drf_yasg",
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "budget_management.users.apps.UsersConfig",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -117,7 +119,7 @@ MEDIA_URL = "/media/"
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# AUTH_USER_MODEL = "users.User" -> users 앱이 없어서 주석처리
+AUTH_USER_MODEL = "users.User"
 
 # Swagger settings
 SWAGGER_SETTINGS = {"SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}}}
