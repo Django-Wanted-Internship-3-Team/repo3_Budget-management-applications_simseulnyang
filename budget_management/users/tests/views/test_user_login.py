@@ -30,6 +30,14 @@ class LoginViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("non_field_errors", response.data)
 
+    def test_validate_failure_invalid_username(self):
+        response = self.client.post(
+            path=reverse("login"),
+            data=json.dumps({"username": "invalid_username", "password": "testpassword"}),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_validate_failure_invalid_password(self):
         response = self.client.post(
             path=reverse("login"),
