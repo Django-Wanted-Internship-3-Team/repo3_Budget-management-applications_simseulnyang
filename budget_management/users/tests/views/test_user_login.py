@@ -33,3 +33,11 @@ class LoginViewTest(APITestCase):
             content_type="application/json",
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_login_failure_missing_username(self):
+        response = self.client.post(path=reverse("login"), data=json.dumps({"password": "testpassword"}), content_type="application/json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_login_failure_missing_password(self):
+        response = self.client.post(path=reverse("login"), data=json.dumps({"username": "testuser1"}), content_type="application/json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
