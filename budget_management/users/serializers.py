@@ -31,14 +31,13 @@ class UserLoginSerializer(serializers.Serializer):
     token = serializers.SerializerMethodField(read_only=True)
 
     def get_token(self, user):
-        if user is not None:
+        if user:
             refresh = TokenObtainPairSerializer.get_token(user)
             refresh["username"] = user.username
-            data = {
+            return {
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
             }
-            return data
         return None
 
     def validate(self, data):
