@@ -23,7 +23,12 @@ THIRD_PARTY_APPS = [
     "drf_yasg",
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "budget_management.users.apps.UsersConfig",
+    "budget_management.budget.apps.BudgetConfig",
+    "budget_management.category.apps.CategoryConfig",
+    "budget_management.expenditure.apps.ExpenditureConfig",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
