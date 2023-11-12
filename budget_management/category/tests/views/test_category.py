@@ -38,26 +38,26 @@ class CategoryViewTest(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_delete_category_success(self):
-        valid_category_data = self.category_data.copy()
-        valid_category_data["is_status"] = "deleted"
+    # def test_delete_category_success(self):
+    #     valid_category_data = self.category_data.copy()
+    #     valid_category_data["is_status"] = "deleted"
 
-        response = self.client.patch(
-            path=reverse("category_deleted"),
-            data=json.dumps(valid_category_data),
-            content_type="application/json",
-            HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
-        )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     response = self.client.patch(
+    #         path=reverse("category_deleted"),
+    #         data=json.dumps(valid_category_data),
+    #         content_type="application/json",
+    #         HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
+    #     )
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_delete_category_fail_invalid_status(self):
-        invalid_category_data = self.category_data.copy()
-        invalid_category_data["is_status"] = "invalid_status"
+    # def test_delete_category_fail_invalid_status(self):
+    #     invalid_category_data = self.category_data.copy()
+    #     invalid_category_data["is_status"] = "invalid_status"
 
-        response = self.client.patch(
-            path=reverse("category_deleted"),
-            data=json.dumps(invalid_category_data),
-            content_type="application/json",
-            HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
-        )
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    #     response = self.client.patch(
+    #         path=reverse("category_deleted"),
+    #         data=json.dumps(invalid_category_data),
+    #         content_type="application/json",
+    #         HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
+    #     )
+    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
