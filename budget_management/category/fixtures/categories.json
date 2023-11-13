@@ -1,0 +1,42 @@
+[
+    {
+        "model": "category.category",
+        "pk": 1,
+        "fields": {
+            "category_name": "식비",
+            "is_status": "in_use"
+        }
+    },
+    {
+        "model": "category.category",
+        "pk": 2,
+        "fields": {
+            "category_name": "교통비",
+            "is_status": "in_use"
+        }
+    },
+    {
+        "model": "category.category",
+        "pk": 3,
+        "fields": {
+            "category_name": "공과금",
+            "is_status": "in_use"
+        }
+    },
+    {
+        "model": "category.category",
+        "pk": 4,
+        "fields": {
+            "category_name": "문화생활",
+            "is_status": "in_use"
+        }
+    },
+    {
+        "model": "category.category",
+        "pk": 5,
+        "fields": {
+            "category_name": "미래투자비",
+            "is_status": "in_use"
+        }
+    }
+]
