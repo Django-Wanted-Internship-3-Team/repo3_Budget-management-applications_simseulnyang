@@ -26,8 +26,8 @@ class CategoryViewTest(APITestCase):
         )
         self.access_token = response.data["token"]["access"]
         self.category_data = {
+            "id": 1,
             "category_name": "Food",
-            "category_info": "Expenses on food",
             "is_status": "in_use",
         }
 
@@ -38,26 +38,23 @@ class CategoryViewTest(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # def test_delete_category_success(self):
-    #     valid_category_data = self.category_data.copy()
-    #     valid_category_data["is_status"] = "deleted"
+    def test_unauthorized_user_fail_to_list_category(self):
+        response = self.client.get(
+            path=reverse("category_list"),
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.json(), {"detail": "자격 인증데이터(authentication credentials)가 제공되지 않았습니다."})
 
-    #     response = self.client.patch(
-    #         path=reverse("category_deleted"),
-    #         data=json.dumps(valid_category_data),
-    #         content_type="application/json",
-    #         HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
-    #     )
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_fail_not_existed_category(self):
+        self.invalid_category_data = {
+            "id": 100,
+            "category_name": "invalid_name",
+            "is_status": "invalid_status",
+        }
 
-    # def test_delete_category_fail_invalid_status(self):
-    #     invalid_category_data = self.category_data.copy()
-    #     invalid_category_data["is_status"] = "invalid_status"
-
-    #     response = self.client.patch(
-    #         path=reverse("category_deleted"),
-    #         data=json.dumps(invalid_category_data),
-    #         content_type="application/json",
-    #         HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
-    #     )
-    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        response = self.client.get(
+            path=reverse("category_detail", kwargs={"category_id": self.invalid_category_data["id"]}),
+            content_type="application/json",
+            HTTP_AUTHORIZATION=f"Bearer {self.access_token}",
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
